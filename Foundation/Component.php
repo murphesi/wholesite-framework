@@ -31,11 +31,11 @@ class Component {
 
 	/**
 	 * Magic get function
-	 * 
+	 *
 	 * NOTE: Only if the property requested is marked as 'private' or 'protected'
 	 * will this method be used. If no 'get_' method has been defined you will get
 	 * the expected fatal error.
-	 * 
+	 *
 	 * @param  string  $property
 	 * @return mixed
 	 */
@@ -44,13 +44,13 @@ class Component {
 			$this->getters = array();
 
 			foreach ( get_class_methods( $this ) as $method ) {
-				if ( 'get_' == substr( $method, 0, 4 ) ) {
+				if ( 'get_' === substr( $method, 0, 4 ) ) {
 					$this->getters[] = $method;
 				}
 			}
 		}
 
-		if ( in_array( "get_$property", $this->getters ) ) {
+		if ( in_array( "get_$property", $this->getters, true ) ) {
 			return $this->{"get_$property"}();
 		}
 
@@ -63,11 +63,11 @@ class Component {
 
 	/**
 	 * Magic set function
-	 * 
+	 *
 	 * NOTE: Only if the property requested is marked as 'private' or 'protected'
 	 * will this method be used. If no 'set_' method has been defined you will get
 	 * the expected fatal error.
-	 * 
+	 *
 	 * @param  string  $property
 	 * @param  mixed  $value
 	 * @return void
@@ -77,13 +77,13 @@ class Component {
 			$this->setters = array();
 
 			foreach ( get_class_methods( $this ) as $method ) {
-				if ( 'set_' == substr( $method, 0, 4 ) ) {
+				if ( 'set_' === substr( $method, 0, 4 ) ) {
 					$this->setters[] = $method;
 				}
 			}
 		}
 
-		if ( in_array( "set_$property", $this->setters ) ) {
+		if ( in_array( "set_$property", $this->setters, true ) ) {
 			$this->{"set_$property"}( $value );
 
 			return;
@@ -98,11 +98,11 @@ class Component {
 
 	/**
 	 * Magic isset function
-	 * 
+	 *
 	 * NOTE: Only if the property requested is marked as 'private' or 'protected'
 	 * will this method be used. If no 'get_' method has been defined you will get
 	 * a 'false' return.
-	 * 
+	 *
 	 * @param  string  $property
 	 * @return boolean
 	 */
